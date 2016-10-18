@@ -1,46 +1,10 @@
  <html>
 <head>
-    
-<?php
-session_start();
-//calls the sqliConnect to be used here
-require_once 'sqliConnect.php';
-if(isset($_SESSION["access_level"]) && $_SESSION["access_level"]==2)
-    {
-
-//upade the database to show that the user is logged in.
-$name =$name = $_SESSION['id'];
-
-  $con = get_sqli();
-if (!$con) {
-    die('Could not connect: ' . mysqli_error($con));
-}
-
-mysqli_select_db($con,"login_details");
-$sql="UPDATE  login_details SET logged='1' WHERE id='$name'";
-$result = mysqli_query($con,$sql);
-if (!$result) {
-    printf("Error: %s\n", mysqli_error($con));
-    exit();
-}
-
-//display welcome message and logout link
- echo "'Welcome to the front desk'"."<br/><a href='logout.php'>Logout</a>";
- 
- }
-else
-    {
- header("Location:index.php?err=2");
- }
-?>
-    
-    
-    
 <script>
     //refresh the show users function
    myVar = setInterval(showUsers, 1000);
    
-   //function to call the fetchTable.php page
+   //function to call the fetch table php page
 function showUsers(str) {
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
@@ -65,16 +29,12 @@ function showUsers(str) {
 
 </script>
 </head>
-
+<body>
  
 <br>
 <!--Display the table here    -->
 <div   id="txtHint"><b>Status Will be displayed here.</b></div>
 
+
+</body>
 </html>
-
-
-
-
-
-
