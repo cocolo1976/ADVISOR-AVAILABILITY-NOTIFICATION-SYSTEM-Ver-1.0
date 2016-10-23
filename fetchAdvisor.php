@@ -1,4 +1,4 @@
-<!-- This page is used to fetch the whole table of logged in users-->
+<!-- This page is used to fetch the whole table on logged in users-->
 <!DOCTYPE html>
 <html>
 <head>  
@@ -21,17 +21,19 @@ th {text-align: left;}
 <?php
 require_once ('sqliConnect.php');
 
+$q = ( $_GET['q'] );
+//$q ="SELECT id, status FROM login_details";
 $con = get_sqli();
+
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
 
 mysqli_select_db($con,"login");
-$sql="SELECT id, status FROM login_details where logged =1 and level =0";
+$sql=$q;
 $result = mysqli_query($con,$sql);
 if (!$result) {
-    printf("Error: %s\n", mysqli_error($con));
-    exit();
+   printf("Error: %s\n", mysqli_error($con));
 }
 
 echo "<table>
@@ -46,7 +48,9 @@ while($row = mysqli_fetch_array($result)) {
     echo "</tr>";
 }
 echo "</table>";
+
 mysqli_close($con);
 ?>
 </body>
 </html>
+

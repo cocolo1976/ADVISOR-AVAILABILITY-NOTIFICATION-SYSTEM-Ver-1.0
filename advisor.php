@@ -140,13 +140,53 @@ else{
 function setStatus( $status)
 {
     session_start();
-    require("db.php");
-    $db =get_db();
+    require("sqliConnect.php");
+    $con = get_sqli();
+    $con = get_sqli();
+if (!$con) {
+    die('Could not connect: ' . mysqli_error($con));
+}
+    
+    mysqli_select_db($con,"login_details");
     $name = $_SESSION['id'];
     $st = $status;
     $sql = "UPDATE  login_details SET Status= '$st' WHERE id='$name'";
- $db->query($sql);
-    
+$result = mysqli_query($con,$sql);
+
+
+
+  //if the status is ready, force the table to update to signal ronst desk of a log in   
+ If ($status=="Ready")
+ {
+ $con = get_sqli();
+if (!$con) {
+    die('Could not connect: ' . mysqli_error($con));
+}
+
+mysqli_select_db($con,"msgs");
+$sql="UPDATE  msgs SET msg= 'change' WHERE id='1'";
+$result = mysqli_query($con,$sql);
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($con));
+    exit();
+}
+
+$con = get_sqli();
+if (!$con) {
+    die('Could not connect: ' . mysqli_error($con));
+}
+
+mysqli_select_db($con,"msgs");
+$sql="UPDATE  msgs SET msg= 'Ready' WHERE id='1'";
+$result = mysqli_query($con,$sql);
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($con));
+    exit();
+}
+
+
+
+ }
     
 }
 
