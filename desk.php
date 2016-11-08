@@ -3,6 +3,7 @@
     <!--SOUNd FILE loaded into the page to be played later--->
     <audio id="sound" src="nice-cut.mp3" preload="auto"></audio> 
 <?php
+
 session_start();
 //calls the sqliConnect to be used here
 require_once 'sqliConnect.php';
@@ -17,6 +18,9 @@ if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
 
+
+
+//set desk to logged in
 mysqli_select_db($con,"login_details");
 $sql="UPDATE  login_details SET logged='1' WHERE id='$name'";
 $result = mysqli_query($con,$sql);
@@ -34,6 +38,89 @@ else
  header("Location:index.php?err=2");
  }
 ?>
+    <?php
+    //this is he code for the qeue
+
+// connect to the database
+
+
+
+$con = get_sqli();
+
+// get results from database
+
+if (!$con) {
+    die('Could not connect: ' . mysqli_error($con));
+}
+
+mysqli_select_db($con,"login");
+$sql="SELECT * FROM walk_in";
+$result = mysqli_query($con,$sql);
+
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($con));
+    exit();
+}
+
+//Table to dispaly qeueu
+echo "<table border='1' cellpadding='10'>";
+
+echo "<tr> <th>ID</th> <th>First Name</th> <th>Last Name</th><th>Advisor Student wants to see</th><th>P ID</th><th>Select Advisor to notify on send</th><th>Send Student</th><th> </tr>";
+
+echo "<tr>";
+
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['id'] . "</td>";
+    echo "<td>" . $row['FirstName'] . "</td>";
+    echo "<td>" . $row['LastName'] . "</td>";
+    echo "<td>" . $row['Advisor'] . "</td>";
+    echo "<td>" . $row['pid'] . "</td>";
+    
+    // drop down menu for selecting advisor as a form submission
+    
+ echo "<td>" ;
+ 
+echo '<form action="delete.php?id=' . $row['id'] . '" method="post">';
+echo '<select name="formStatus">';
+$con = get_sqli();
+            mysqli_select_db($con,"login");
+$sql="SELECT * FROM login_details WHERE level = 0";
+$result2 = mysqli_query($con,$sql);
+
+if (!$result2) {
+    printf("Error: %s\n", mysqli_error($con));
+    exit();
+}
+
+            //loops through all advisors for drop down menu creation
+               while ($row2 = mysqli_fetch_array($result2)) {
+   echo '<option value="'.$row2['id'].'">'.$row2['id'].'</option>';
+}
+echo'<option selected="selected"></option>';
+
+echo '</select>';
+
+        
+      
+echo '<td><input type="submit" name="formSubmit" value= "Submit" /><td>';
+//echo '<td><input type="submit" name="formSubmit" value=  /><td>';
+   
+//echo '<td><a href="delete.php?id=' . $row['id'] . '&advisor='. "lol" .'">Send</a></td>';
+
+echo "</tr>";
+
+}
+
+
+
+// close table>
+
+echo "</table>";
+
+?>
+    
+<p><a href="new.php">Add a new record</a></p>
     
     
     

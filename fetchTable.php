@@ -1,4 +1,4 @@
-<!-- This page is used to fetch the whole table of logged in users-->
+<!-- This page is used to fetch the whole table of logged in advisors-->
 <!DOCTYPE html>
 <html>
 <head>  
@@ -25,9 +25,10 @@ $con = get_sqli();
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-
+//selects all logged in users in ascend oder
+//SELECT * FROM `login_details` ORDER BY `login_details`.`lastupdate` DESC 
 mysqli_select_db($con,"login");
-$sql="SELECT id, status FROM login_details where logged =1 and level =0";
+$sql="SELECT id, status,lastupdate FROM login_details where logged =1 and level =0 ORDER BY `login_details`.`lastupdate` DESC";
 $result = mysqli_query($con,$sql);
 if (!$result) {
     printf("Error: %s\n", mysqli_error($con));
@@ -38,11 +39,13 @@ echo "<table>
 <tr>
 <th>ID</th>
 <th>Status</th>
+<th>LastUpdate</th>
 </tr>";
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['id'] . "</td>";
     echo "<td>" . $row['status'] . "</td>";
+    echo "<td>" . $row['lastupdate'] . "</td>";
     echo "</tr>";
 }
 echo "</table>";

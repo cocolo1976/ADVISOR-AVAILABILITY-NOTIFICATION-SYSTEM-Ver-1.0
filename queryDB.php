@@ -1,4 +1,7 @@
+
+
 <?php
+//returns  a time stamp from a database.
 session_start();
 
 require 'sqliConnect.php';

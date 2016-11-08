@@ -1,5 +1,6 @@
 <html>
 <head>
+    
 	<title>Advisor Status Change Page</title>
 <!-- define some style elements-->
 <style>
@@ -13,6 +14,7 @@ label,a
 </head>
 
 <body>
+    <audio id="sound" src="nice-cut.mp3" preload="auto"></audio>
 <?php
 	if(isset($_POST['formSubmit'])) 
 	{
@@ -38,7 +40,11 @@ label,a
 			$redir = "advisor.php";
 			switch($varCountry)
 			{
-				case "Ready": setStatus('Ready'); break;
+				case "RFA": setStatus('RFA'); break;
+                                case "RFW": setStatus('RFW'); break;
+                                case "OO": setStatus('OO'); break;
+                                case "UA": setStatus('UA'); break;
+                                case "Ready": setStatus('Ready'); break;
 				case "Busy": setStatus('Busy'); break;
 				default: echo("Error!"); exit(); break;
 			}
@@ -61,7 +67,11 @@ label,a
 	<select name="formStatus">
 		<option value="">Select a Status</option>
 		<option value="Ready">Ready</option>
-		<option value="Busy">Busy</option>
+                <option value="Busy">Busy</option>
+                <option value="RFA">RFA</option>
+                <option value="RFW">RFW</option>
+                <option value="OO">OO</option>
+                <option value="UA">UA</option>
 		
 	</select> 
 	<input type="submit" name="formSubmit" value="Submit" />
@@ -155,8 +165,8 @@ $result = mysqli_query($con,$sql);
 
 
 
-  //if the status is ready, force the table to update to signal ronst desk of a log in   
- If ($status=="Ready")
+  //if the status is ready, force the table to update to signal front desk of a log in   
+ If ($status=="RFA"||$status=="RFW")
  {
  $con = get_sqli();
 if (!$con) {
@@ -177,7 +187,7 @@ if (!$con) {
 }
 
 mysqli_select_db($con,"msgs");
-$sql="UPDATE  msgs SET msg= 'Ready' WHERE id='1'";
+$sql="UPDATE  msgs SET msg= '$st' WHERE id='1'";
 $result = mysqli_query($con,$sql);
 if (!$result) {
     printf("Error: %s\n", mysqli_error($con));
@@ -190,8 +200,48 @@ if (!$result) {
     
 }
 
+ 
+
 
 ?>
+        
+
+
+<script>
+       
+     myVar = setInterval(loadXMLDoc2, 5000); 
+
+
+ //function used to keep checking if the table has changed.   
+function loadXMLDoc2() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     
+      $f = this.responseText;
+      if ($f!=0)
+      {
+         
+         document.getElementById('sound').play();  
+         alert("Student On The way");
+      }
+    }
+  };
+  xhttp.open("GET", "checkStudent.php", true);
+  xhttp.send();
+  
+  
+  if($f!=0)
+  {
+   $f=0;   
+  xhttp.open("GET", "setSendStudento0.php", true);
+  xhttp.send();
+  
+    }
+  
+}
+        </script>
+
 </form>
 
 </body>
