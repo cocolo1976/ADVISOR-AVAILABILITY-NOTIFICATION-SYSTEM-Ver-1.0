@@ -151,7 +151,7 @@ function setStatus( $status)
 {
     session_start();
     require("sqliConnect.php");
-    $con = get_sqli();
+    
     $con = get_sqli();
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));

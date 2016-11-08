@@ -12,14 +12,29 @@ Removes a student from the qeueue and alerts the advisor
 include('sqliConnect.php');
 if (isset($_GET['id']) && is_numeric($_GET['id'])&&($_POST['formSubmit']))
 {
-    //( need to implement this )checking if advisor stastus is FRW  or FRA if not qeueu table wil net remove the student
-    //$con = get_sqli();
-    //$id = $_GET['id'];
-   // $advisor =  $_POST['formStatus'];
-    
-    if(true)
+    //code to prevent adivsor from getting astudent if the status is not correct
+     $advisorID =  $_POST['formStatus'];
+     //echo $advisorID;
+     $con = get_sqli();
+     mysqli_select_db($con,"login");
+$sql="SELECT * FROM `login_details` WHERE id = '$advisorID'";
+$result3 = mysqli_query($con,$sql);
+//echo $result3;
+if (!$result3) {
+    printf("Error: %s\n", mysqli_error($con));
+    printf("result not working");
+    exit();
+}
+  $row3 = mysqli_fetch_array($result3);
+ 
+  $status3 =  $row3['Status'];
+   echo $status3; 
+   
+   
+    //if ADVISOR IS READY FOR APOITMENT CONTINUE IF NOT DO RETuRN TO DESK PAGE
+    if($status3 =='RFA'|| $status3 =='RFW')
     {
-    
+   
     $con = get_sqli();
     //get the id
     //
@@ -42,17 +57,21 @@ if (!$result) {
 //gets the adviser from the drop down list and uses it to say a student is on the way
 
 	
-    $advisor =  $_POST['formStatus'];
+    $advisorID =  $_POST['formStatus'];
 //execute delete query
 mysqli_select_db($con,"login");
-$sql="UPDATE `login_details` SET `student_sent` = '1' WHERE `login_details`.`id` = '$advisor'";
+$sql="UPDATE `login_details` SET `student_sent` = '1' WHERE `login_details`.`id` = '$advisorID'";
 $result = mysqli_query($con,$sql);
 
 //echo $advisor;
 
         
-// redirect back 
-    }
+ 
+    } 
+    
+        
+    
+  //redirect back  
 header("Location: desk.php");
     
 
@@ -70,4 +89,3 @@ header("Location: desk.php");
 
 
 
-?>

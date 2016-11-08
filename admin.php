@@ -23,10 +23,16 @@ $id = $_SESSION["access_level"];
 if(isset($_SESSION["access_level"]) && $_SESSION["access_level"]==1)
     
     {
+    // Display a table of all advisors( to teremine if a user was succesfully added or removed
+    
+    
+    
 	if(isset($_POST['formSubmit'])) 
         {
             $name=$_POST['name'];
             $pwd=$_POST['pwd'];
+            $firstname = $_POST['FirstName'];
+             $lastname = $_POST['LastName'];
             if($name!=''&&$pwd!='')
  {
 	
@@ -37,13 +43,14 @@ if(isset($_SESSION["access_level"]) && $_SESSION["access_level"]==1)
 		
 		if(empty($varSelection)) 
 		{
-			$errorMessage = "<li>You forgot to select a Status!</li>";
+			$errorMessage = "<li>You forgot to select add or remove!</li>";
 		}
 		
 		if($errorMessage != "") 
 		{
 			echo("<p>There was an error with your Selection:</p>\n");
 			echo("<ul>" . $errorMessage . "</ul>\n");
+                        exit();
 		} 
 		else 
 		{
@@ -54,8 +61,8 @@ if(isset($_SESSION["access_level"]) && $_SESSION["access_level"]==1)
 			$redir = "admin.php";
 			switch($varSelection)
 			{
-				case "Remove": removeUser($name);break;
-				case "Add": addUser($name,$pwd); break;
+				case "Remove": removeUser($name,$pwd);break;
+				case "Add": addUser($name,$pwd,$firstname,$lastname); break;
 				default: echo("Error!"); exit(); break;
 			}
 			echo " redirecting to: $redir ";
@@ -63,9 +70,7 @@ if(isset($_SESSION["access_level"]) && $_SESSION["access_level"]==1)
 			 header("Location: $redir");
 			// end method 1
 			
-			// method 2: dynamic redirect
-			//header("Location: " . $varCountry . ".html");
-			// end method 2
+			
 
 			exit();
 		}
@@ -82,8 +87,15 @@ $sql = "UPDATE  login_details SET logged='1' WHERE id='$name'";
  
 
  echo "<br><br><br><br><br>Hello $name, This your admin page<br/><a href='logout.php'>Logout</a>";
- echo "<br>Enter the User ID  and password of the account you want to manipulate.";
  
+ 
+ //Display  registerd advisors
+ require 'fetchAdminTable.php';
+ /////////////////////////////////
+ 
+ 
+ echo "<br>Enter the Details of the account you want to manipulate.";
+ echo"<br>To remove only enter the id and password."; 
  
  
 }
@@ -95,7 +107,9 @@ else{
 
 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
     <tr><td>User id:</td><td><input type='text' name='name'/></td></tr<br>
-    <br><br> <tr><td>Password:</td><td><input type='text' name='pwd'/></td></tr> <br>	
+    <br><br> <tr><td>Password:</td><td><input type='text' name='pwd'/></td></tr> <br>
+    <br><br> <tr><td>First Name</td><td><input type='text' name='FirstName'/></td></tr> <br>
+     <br><br> <tr><td>Last Name</td><td><input type='text' name='LastName'/></td></tr> <br>
     <label for='formStatus'>Add or Remove Account</label><br>
 	<select name="formStatus">
 		<option value="">Select a Status</option>
@@ -108,7 +122,7 @@ else{
 
     <?php
 //sets the status to the parameter given
-function addUser( $name,$pwd)
+function addUser( $name,$pwd,$firstname,$lastname)
 {
     session_start();
    
@@ -117,26 +131,53 @@ function addUser( $name,$pwd)
     $db =get_db();
     $nm = $name;
     $pw = $pwd;
-    $sql = "INSERT INTO login_details (id, password, level, logged, Status) VALUES ('".$nm."','".$pw."','0','0','')";
+    $fn =$firstname;
+    $ln =$lastname;       
+    $sql = "INSERT INTO login_details (id, FirstName,Lastname, password, level, logged, Status) VALUES ('".$nm."','$firstname','$lastname','".$pw."','0','0','')";
  $db->query($sql);
     
    
 }
 
-function removeUser($name)
+function removeUser($name,$pwd)
 {
     session_start();
-   
-    
+    $nm = $name;
+    $pw = $pwd;
+ //the two requires offer the same function jsut different methods.
     require("db.php");
+    require ("sqliConnect.php");
+    $con2 = get_sqli();
+    
+    if (!$con2) {
+    die('Could not connect: ' . mysqli_error($con));
+}
+//selects all advisor 
+//SELECT * FROM `login_details` ORDER BY `login_details`.`lastupdate` ASC 
+mysqli_select_db($con,"login");
+$sql=" SELECT password FROM login_details where level =0 AND id ='$name' ORDER BY `login_details`.`lastupdate` DESC";
+$result = mysqli_query($con2,$sql);
+
+$row  = mysqli_fetch_array($result);
+    
+    
+    
+    $respw = $row['password'];
+    
+    if($respw==$pw)
+    {
     $db =get_db();
     $nm = $name;
     $pw = $pwd;
+    $fn =$firstname;
+    $ln =$lastname;       
     $sql = "DELETE FROM login_details WHERE id='".$nm."'  ";
  $db->query($sql);
+    }
     
+    }
     
-}
+
 
 
 ?>
