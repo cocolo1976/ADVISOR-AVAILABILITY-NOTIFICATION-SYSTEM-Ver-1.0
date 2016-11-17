@@ -44,7 +44,6 @@ label,a
                                 case "RFW": setStatus('RFW'); break;
                                 case "OO": setStatus('OO'); break;
                                 case "UA": setStatus('UA'); break;
-                                case "Ready": setStatus('Ready'); break;
 				case "Busy": setStatus('Busy'); break;
 				default: echo("Error!"); exit(); break;
 			}
@@ -66,7 +65,6 @@ label,a
 	<label for='formStatus'>Select your Status</label><br>
 	<select name="formStatus">
 		<option value="">Select a Status</option>
-		<option value="Ready">Ready</option>
                 <option value="Busy">Busy</option>
                 <option value="RFA">RFA</option>
                 <option value="RFW">RFW</option>
@@ -210,7 +208,7 @@ if (!$result) {
 <script>
        
      myVar = setInterval(loadXMLDoc2, 5000); 
-
+ 
 
  //function used to keep checking if the table has changed.   
 function loadXMLDoc2() {
@@ -221,9 +219,10 @@ function loadXMLDoc2() {
       $f = this.responseText;
       if ($f!=0)
       {
+         fetchStudntNme ();
+         document.getElementById('sound').play(); 
          
-         document.getElementById('sound').play();  
-         alert("Student On The way");
+        
       }
     }
   };
@@ -239,6 +238,21 @@ function loadXMLDoc2() {
   
     }
   
+}
+//fietch the student being sent and display an alert
+function fetchStudntNme ()
+{
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     
+      name = this.responseText;
+        alert( "Student " + name + " on the way." );
+     
+    }
+  };
+  xhttp.open("GET", "getStudentName.php", true);
+  xhttp.send();
 }
         </script>
 

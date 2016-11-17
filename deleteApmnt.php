@@ -14,7 +14,7 @@ include('sqliConnect.php');
 if (($_POST['formSubmit']!=NULL))
 {
     //the id of the walkk in bieng removed form the queue and snet to advisor
-    $walkID = $_GET['id'];
+    $appointmentId= $_GET['id'];
     
 
     //code to prevent adivsor from getting astudent if the status is not correct
@@ -46,11 +46,11 @@ if (!$result3) {
 
    
     //if ADVISOR IS READY FOR APOITMENT CONTINUE IF NOT DO RETuRN TO DESK PAGE
-    if( $status3 =='RFW')
+    if( $status3 =='RFA')
     {
         //fetch student name of student to be sent to advisor
       mysqli_select_db($con,"login");
-$sql="Select * FROM walk_in WHERE id=$walkID";
+$sql="Select * FROM apointments WHERE id=$appointmentId";
 $result = mysqli_query($con,$sql);  
   $row = mysqli_fetch_array($result);    
         
@@ -68,7 +68,7 @@ $row = mysqli_fetch_array($result);
 
 //execute delete query
 mysqli_select_db($con,"login");
-$sql="DELETE FROM walk_in WHERE id=$walkID";
+$sql="DELETE FROM apointments WHERE id=$appointmentId";
 $result = mysqli_query($con,$sql);
 
 if (!$result) {

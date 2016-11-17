@@ -28,7 +28,7 @@ if (!$con) {
 //selects all logged in users in ascend oder
 //SELECT * FROM `login_details` ORDER BY `login_details`.`lastupdate` DESC 
 mysqli_select_db($con,"login");
-$sql="SELECT id, status,lastupdate FROM login_details where logged =1 and level =0 ORDER BY `login_details`.`lastupdate` DESC";
+$sql="SELECT * FROM login_details where logged =1 and level =0 ORDER BY `login_details`.`lastupdate` DESC";
 $result = mysqli_query($con,$sql);
 if (!$result) {
     printf("Error: %s\n", mysqli_error($con));
@@ -38,13 +38,17 @@ if (!$result) {
 echo "<table>
 <tr>
 <th>ID</th>
+<th>First Name</th>
+<th>Last Name</th>
 <th>Status</th>
 <th>LastUpdate</th>
 </tr>";
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['id'] . "</td>";
-    echo "<td>" . $row['status'] . "</td>";
+    echo "<td>" . $row['FirstName'] . "</td>";
+    echo "<td>" . $row['LastName'] . "</td>";
+    echo "<td>" . $row['Status'] . "</td>";
     echo "<td>" . $row['lastupdate'] . "</td>";
     echo "</tr>";
 }
