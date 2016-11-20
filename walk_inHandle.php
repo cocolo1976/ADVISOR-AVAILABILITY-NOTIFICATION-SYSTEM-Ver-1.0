@@ -1,5 +1,6 @@
 <?php
-    //this is he code for the qeue
+   //This page handles the walk in queue
+
 // connect to the database udinh sqli
 $con = get_sqli();
 // get results from database
@@ -42,7 +43,7 @@ while($row = mysqli_fetch_array($result))
     $formId =  $row['id'] ; 
     
 echo "<td>" ;
- //create a form to submit the sleected advisor and the seelcted student to be removed from the queue
+ //create a form to submit the sleected advisor and the selected student to be removed from the queue
 echo '<form action="delete.php?id=' . $row['id'] . '" method="post">';
  
  //another query used to retreive the list of advisors  to pupulate the drop down menu

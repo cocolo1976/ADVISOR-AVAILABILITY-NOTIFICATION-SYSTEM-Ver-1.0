@@ -43,6 +43,7 @@ else
  //displays the table for walk_ins a
   echo ' <br/><br/>  Walk-In Queue:';
   include 'walk_inHandle.php';
+  //displays the table for appointments
   echo 'Appointment Queue:';
   include 'apointment_handle.php';
  ?>
@@ -127,13 +128,18 @@ function loadXMLDoc2() {
 <br>
 <!--Display the table here    -->
 <?php
-
 echo 'Advisor Status Table:';
 
 ?>
 <div   id="txtHint"><b>Status Will be displayed here.</b></div>
-
-
+<?php
+echo 'Statuses:<br />';
+echo  'Busy: With Student<br />';
+echo  'RFA: Ready For Appointment<br />';
+echo  'RFW: Ready For Walk-in<br />';
+echo  "UA: Unavailable<br />";
+echo  'OO: Out of Office<br />';
+?>
 </html>
 
 

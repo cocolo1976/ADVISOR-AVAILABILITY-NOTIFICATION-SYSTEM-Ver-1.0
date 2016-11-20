@@ -28,7 +28,7 @@ if (!$con) {
 //selects all advisor 
 //SELECT * FROM `login_details` ORDER BY `login_details`.`lastupdate` ASC 
 mysqli_select_db($con,"login");
-$sql="SELECT id, status,FirstName,LastName,password ,lastupdate FROM login_details where level =0 ORDER BY `login_details`.`lastupdate` DESC";
+$sql="SELECT id, status,FirstName,LastName,password,level,lastupdate FROM login_details ORDER BY `login_details`.`lastupdate` DESC";
 $result = mysqli_query($con,$sql);
 if (!$result) {
     printf("Error: %s\n", mysqli_error($con));
@@ -42,6 +42,7 @@ echo "<table>
 <th>Last Name</th>
 <th>Status</th>
 <th>password</th>
+<th>Level</th>
 <th>LastUpdate</th>
 </tr>";
 while($row = mysqli_fetch_array($result)) {
@@ -51,6 +52,7 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td>" . $row['LastName'] . "</td>";
     echo "<td>" . $row['status'] . "</td>";
     echo "<td>" . $row['password'] . "</td>";
+    echo "<td>" . $row['level'] . "</td>";
     echo "<td>" . $row['lastupdate'] . "</td>";
     echo "</tr>";
 }

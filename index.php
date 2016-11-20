@@ -24,25 +24,33 @@
 </form>
 <?php
 session_start();
-
+include 'lib/password.php';
 
 if(isset($_POST['submit']))
 {
-//connect to the db
- mysql_connect('localhost','root','') or die(mysql_error());
- mysql_select_db('login') or die(mysql_error());
+    //connect to the db
+   include 'sqliConnect.php';
+   $con = get_sqli();
+mysqli_select_db($con,"login");
+ 
  $name=$_POST['name'];
  $pwd=$_POST['pwd'];
+ 
+ 
+  
 
  //if a name and password were inputted do the followin
  if($name!=''&&$pwd!='')
  {
- //check to see if the name and pasword match the database with lvl 0 clearance
-   $query=mysql_query("select * from login_details where id='".$name."' and password='".$pwd."'and level = 0") or die(mysql_error());
-   $res=mysql_fetch_row($query);
+      //check to see if the name and pasword match the database with lvl 0 clearance
+     $sql="select password from login_details where id='".$name."' and level = 0";
+$result = mysqli_query($con,$sql);
+$row = mysqli_fetch_array($result);
+ $hashedpPw =$row['password'];
+   
 
    //if yes proceed to the advisor page 
-   if($res)
+   if(password_verify($pwd, $hashedpPw))
    {
 
 
@@ -55,11 +63,14 @@ if(isset($_POST['submit']))
    }else
 {
 
-   $query=mysql_query("select * from login_details where id='".$name."' and password='".$pwd."'and level = 1") or die(mysql_error());
-      $res=mysql_fetch_row($query);
+    $sql="select password from login_details where id='".$name."' and level = 1";
+$result = mysqli_query($con,$sql);
+$row = mysqli_fetch_array($result);
+ $hashedpPw =$row['password'];
+   
 
-      //if yes proceed to admin page
-   if($res)
+   //if yes proceed to the advisor page 
+   if(password_verify($pwd, $hashedpPw))
 
    {
 //update session values
@@ -70,12 +81,14 @@ if(isset($_POST['submit']))
    //check to see if the name and pasword match the database with lvl 2 clearance
    else
    {
+  $sql="select password from login_details where id='".$name."' and level = 2";
+$result = mysqli_query($con,$sql);
+$row = mysqli_fetch_array($result);
+ $hashedpPw =$row['password'];
+   
 
-   $query=mysql_query("select * from login_details where id='".$name."' and password='".$pwd."'and level = 2") or die(mysql_error());
-      $res=mysql_fetch_row($query);
-
- // if yes proceed to the front desk page
-    if($res)
+   //if yes proceed to the advisor page 
+   if(password_verify($pwd, $hashedpPw))
       {
 
 	      $_SESSION['id']="$name";
@@ -84,10 +97,10 @@ if(isset($_POST['submit']))
    }else
    {
 
-   if(!$res)
-         {
+   
+         
          echo'You entered an incorrect username or password';
-   }
+   
    }
    }
    }

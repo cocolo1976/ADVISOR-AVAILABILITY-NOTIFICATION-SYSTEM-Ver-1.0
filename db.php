@@ -1,6 +1,8 @@
 
 <?php
 
+
+
 //function to connect to database
 function get_db(){
  $db_name="login"; // Database name

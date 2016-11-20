@@ -65,11 +65,11 @@ label,a
 	<label for='formStatus'>Select your Status</label><br>
 	<select name="formStatus">
 		<option value="">Select a Status</option>
-                <option value="Busy">Busy</option>
-                <option value="RFA">RFA</option>
-                <option value="RFW">RFW</option>
-                <option value="OO">OO</option>
-                <option value="UA">UA</option>
+                <option value="Busy">Busy:With Student</option>
+                <option value="RFA">RFA:Ready For App.</option>
+                <option value="RFW">RFW:Ready For Walk-In</option>
+                <option value="OO">OO:Out of Office</option>
+                <option value="UA">UA:Unavailable</option>
 		
 	</select> 
 	<input type="submit" name="formSubmit" value="Submit" />
@@ -127,9 +127,12 @@ class TableRows extends RecursiveIteratorIterator {
  
  
  
- // display a message and logout button
+ // display a message and logout link
  echo " <br>Hello $name, This is your status page<br/><a href='logout.php'>Logout</a>";
+ //displays a change pw link 
+ echo "<br/><a href='changePw.php'>Change Password</a>";
  
+ echo '<br/>Remember to Change your Status when you finish with a student:';
  
  
  
@@ -210,7 +213,8 @@ if (!$result) {
      myVar = setInterval(loadXMLDoc2, 5000); 
  
 
- //function used to keep checking if the table has changed.   
+ //function used to keep checking if the table has changed. 
+ //if student logged is 1 then a function is called to set it to 0
 function loadXMLDoc2() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -219,6 +223,7 @@ function loadXMLDoc2() {
       $f = this.responseText;
       if ($f!=0)
       {
+          setToZero();
          fetchStudntNme ();
          document.getElementById('sound').play(); 
          
@@ -229,16 +234,32 @@ function loadXMLDoc2() {
   xhttp.open("GET", "checkStudent.php", true);
   xhttp.send();
   
-  
-  if($f!=0)
-  {
-   $f=0;   
+
+}
+//set student sent to 0 in database to prevent the alert ot be called on loop
+function setToZero()
+{
+     var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     
+      $f = this.responseText;
+      if ($f!=0)
+      {
+          setToZero();
+         fetchStudntNme ();
+         document.getElementById('sound').play(); 
+         
+        
+      }
+    }
+  };
   xhttp.open("GET", "setSendStudento0.php", true);
   xhttp.send();
   
-    }
-  
+    
 }
+
 //fietch the student being sent and display an alert
 function fetchStudntNme ()
 {
@@ -248,12 +269,31 @@ function fetchStudntNme ()
      
       name = this.responseText;
         alert( "Student " + name + " on the way." );
+        setToBusy();
      
     }
   };
   xhttp.open("GET", "getStudentName.php", true);
   xhttp.send();
 }
+//set the status of the advisor to busy
+function setToBusy()
+{
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) 
+    {
+        //reload the page to display the new status
+     location.reload(true)
+     
+        
+    }
+  };
+  xhttp.open("GET", "setToBusy.php", true);
+  xhttp.send();
+}
+
+
         </script>
 
 </form>

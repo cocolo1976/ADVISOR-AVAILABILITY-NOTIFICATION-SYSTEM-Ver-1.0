@@ -1,6 +1,7 @@
 <?php
-
-    //this is he code for the qeue
+//this page handles the appointment queue
+//
+//
 // connect to the database udinh sqli
 $con = get_sqli();
 // get results from database
