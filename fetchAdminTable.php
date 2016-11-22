@@ -41,7 +41,6 @@ echo "<table>
 <th>First Name</th>
 <th>Last Name</th>
 <th>Status</th>
-<th>password</th>
 <th>Level</th>
 <th>LastUpdate</th>
 </tr>";
@@ -51,7 +50,6 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td>" . $row['FirstName'] . "</td>";
     echo "<td>" . $row['LastName'] . "</td>";
     echo "<td>" . $row['status'] . "</td>";
-    echo "<td>" . $row['password'] . "</td>";
     echo "<td>" . $row['level'] . "</td>";
     echo "<td>" . $row['lastupdate'] . "</td>";
     echo "</tr>";

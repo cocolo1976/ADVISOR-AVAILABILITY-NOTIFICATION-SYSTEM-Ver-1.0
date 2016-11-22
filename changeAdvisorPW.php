@@ -23,6 +23,7 @@ session_start();
 echo "<form action='#' method='post'>";
 echo "<table cellspacing='5' align='center'>";
 echo "<tr><td>New Password:</td><td><input type='password' name='pwd'/></td></tr>";
+echo "<tr><td>Retype New Password:</td><td><input type='password' name='pwd2'/></td></tr>";
 echo "<tr><td></td><td><input type='submit' class='inline' name='submit' value='Submit'/></td></tr>";
 echo "<tr><td></td><td><input type='submit' class='inline' name='cancel' value='Cancel'/></td></tr>";
 echo "</table>";
@@ -38,7 +39,8 @@ echo "</table>";
 //if submit is pressed
  if(isset($_POST['submit']))
  {
-    if ($_POST['pwd']!='')
+     //check is pwd is submitted or if 
+    if ($_POST['pwd']!=''&&$_POST['pwd']==$_POST['pwd2'])
     {
  
  $pw = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
@@ -64,7 +66,7 @@ else{
   header("Location:advisor.php");
 }else
 {
-    echo '<center>No Password entered</center>';
+    echo '<center>No Password entered or they do not match.</center>';
 }
  }
 // if cancel is pressed

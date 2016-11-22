@@ -41,6 +41,7 @@ else
    
  <?php
  //displays the table for walk_ins a
+ echo ' <br/><br/>When an advisor logs in refresh the page to reload other tables.';
   echo ' <br/><br/>  Walk-In Queue:';
   include 'walk_inHandle.php';
   //displays the table for appointments

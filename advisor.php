@@ -61,18 +61,7 @@ label,a
 	}
 ?>
 
-<form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
-	<label for='formStatus'>Select your Status</label><br>
-	<select name="formStatus">
-		<option value="">Select a Status</option>
-                <option value="Busy">Busy:With Student</option>
-                <option value="RFA">RFA:Ready For App.</option>
-                <option value="RFW">RFW:Ready For Walk-In</option>
-                <option value="OO">OO:Out of Office</option>
-                <option value="UA">UA:Unavailable</option>
-		
-	</select> 
-	<input type="submit" name="formSubmit" value="Submit" />
+
 
 
 <?php
@@ -98,6 +87,7 @@ $result = mysqli_query($con,$sql);
  //displays a change pw link 
  echo "<br/><a href='changeAdvisorPw.php'>Change Password</a>";
  
+ 
  echo '<br/>Remember to Change your Status when you finish with a student:';
 
  //display status of advisor
@@ -109,6 +99,19 @@ else{
  header("Location:index.php?err=2");
  }
 ?>
+        <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+	<label for='formStatus'></label>
+	<select name="formStatus">
+		<option value="">Select a Status</option>
+                <option value="Busy">Busy:With Student</option>
+                <option value="RFA">RFA:Ready For App.</option>
+                <option value="RFW">RFW:Ready For Walk-In</option>
+                <option value="OO">OO:Out of Office</option>
+                <option value="UA">UA:Unavailable</option>
+		
+	</select> 
+	<input type="submit" name="formSubmit" value="Submit" />
+
 
 <?php
 //sets the status to the parameter given

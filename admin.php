@@ -94,12 +94,12 @@ $con = get_sqli();
 //upade the database to show that the user is logged in.
 $sql="UPDATE  login_details SET logged='1' WHERE id='$name'";
 $result = mysqli_query($con,$sql);
-$row = mysqli_fetch_array($result);
+//$row = mysqli_fetch_array($result);
   
 
 
 
- echo "<br><br><br><br><br>Hello $name, This your admin page<br/><a href='logout.php'>Logout</a>";
+ echo "<br>Hello $name, This your admin page<br/><a href='logout.php'>Logout</a>";
  
  
  //Display  registerd advisers
@@ -125,14 +125,14 @@ else{
      <br><br> <tr><td>Last Name</td><td><input type='text' name='LastName'/></td></tr> <br>
      
      <label for='clearance'>Select the type of account:</label><br>
-	<select name="clearance">
+     <select name="clearance">
 		<option value="0">Advisor</option>
 		<option value="1">Admin</option>
 		<option value="2">Front Desk</option>
-         </select> 
+     </select> <br>
    
      
-    <label for='formStatus'>Add, Remove or Change Password to the Account:</label><br>
+      <label for='formStatus'>Add, Remove or Change Password to the Account:</label><br>
 	<select name="formStatus">
 		<option value="">Select an Option</option>
 		<option value="Remove">Remove</option>

@@ -5,7 +5,7 @@ if(isset($_SESSION["access_level"]))
     {
 //database connection class
   require 'sqliConnect.php';
-require("db.php");
+
 //session id used to update database
 $name = $_SESSION['id'];
 

@@ -30,7 +30,7 @@ if (($_POST['formSubmit']!=NULL))
     die('Could not connect: ' . mysqli_error($con));
 }
      mysqli_select_db($con,"login");
-$sql="SELECT * FROM `login_details` WHERE id = '$advisorID'";
+$sql="SELECT Status,logged FROM `login_details` WHERE id = '$advisorID'";
 $result3 = mysqli_query($con,$sql);
 
 if (!$result3) {
@@ -41,12 +41,13 @@ if (!$result3) {
   $row3 = mysqli_fetch_array($result3);
  
   $status3 =  $row3['Status'];
- 
+  $logged = $row3['logged'];
    
 
    
-    //if ADVISOR IS READY FOR APOITMENT CONTINUE IF NOT DO RETuRN TO DESK PAGE
-    if( $status3 =='RFW')
+    //if ADVISOR IS READY FOR APOITMENT logged in CONTINUE IF NOT DO RETuRN TO DESK PAGE
+  
+    if( $status3 =='RFW'&&$logged==1)
     {
         //fetch student name of student to be sent to advisor
       mysqli_select_db($con,"login");
