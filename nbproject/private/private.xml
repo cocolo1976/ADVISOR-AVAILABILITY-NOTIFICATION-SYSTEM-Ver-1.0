@@ -4,9 +4,24 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/walk_inHandle.php</file>
-            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/apointment_handle.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/index.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/getStudentName.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/checkStudent.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/queryDB.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/setToBusy.php</file>
             <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/desk.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/advisor.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/setSendStudento0.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/fetchAdminTable.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/apointment_handle.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/sqliConnect.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/lib/version-test.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/changeAdvisorPW.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/admin.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/db.php</file>
             <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/deleteRow.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/lib/password.php</file>
+            <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/lib/composer.json</file>
             <file>file:/C:/xampp/htdocs/ADVISOR-AVAILABILITY-SYSTEM-ver-1.0-/delete.php</file>
         </group>
     </open-files>

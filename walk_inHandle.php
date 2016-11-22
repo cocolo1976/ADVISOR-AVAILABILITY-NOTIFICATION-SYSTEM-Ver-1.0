@@ -22,7 +22,7 @@ mysqli_close($con);
 //Table to dispaly qeueu of students
 echo "<table border='1' cellpadding='10'>";
 
-echo "<tr> <th>ID</th> <th>First Name</th> <th>Last Name</th><th>Advisor Student wants to see</th><th>P ID</th><th>Select Advisor to notify on send</th><th>Send Student</th><th>Remove</th></tr>";
+echo "<tr> <th>ID</th> <th>First Name</th> <th>Last Name</th><th>Major and Advisor Student wants to see</th><th>P ID</th><th>Select Advisor to notify on send</th><th>Send Student</th><th>Remove</th></tr>";
 
 echo "<tr>";
 

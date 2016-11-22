@@ -130,7 +130,7 @@ class TableRows extends RecursiveIteratorIterator {
  // display a message and logout link
  echo " <br>Hello $name, This is your status page<br/><a href='logout.php'>Logout</a>";
  //displays a change pw link 
- echo "<br/><a href='changePw.php'>Change Password</a>";
+ echo "<br/><a href='changeAdvisorPw.php'>Change Password</a>";
  
  echo '<br/>Remember to Change your Status when you finish with a student:';
  
