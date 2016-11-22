@@ -81,49 +81,15 @@ if(isset($_SESSION["access_level"]) && $_SESSION["access_level"]==0)
     
     {
 //database connection class
-require("db.php");
+require 'sqliConnect.php';;
 $name = $_SESSION['id'];
 
+$con = get_sqli();
+
 //upade the database to show that the user is logged in.
-$db = get_db();
-$sql = "UPDATE  login_details SET logged='1' WHERE id='$name'";
- $db->query($sql);
+$sql="UPDATE  login_details SET logged='1' WHERE id='$name'";
+$result = mysqli_query($con,$sql);
 
-//creates  a table to display the sql query results
-echo "<table style='border: solid 1px black;'>";
-echo "<tr><th>Id</th><th>Status</th><th></th></tr>";
-class TableRows extends RecursiveIteratorIterator {
-    function __construct($it) {
-        parent::__construct($it, self::LEAVES_ONLY);
-    }
-
-    function current() {
-        return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
-    }
-
-    function beginChildren() {
-        echo "<tr>";
-    }
-
-    function endChildren() {
-        echo "</tr>" . "\n";
-    }
-}
-
-//execute query to display the status of the current advisor
-  $db = get_db();
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $db->prepare("SELECT id, status FROM login_details WHERE id ='$name'" );
-    $stmt->execute();
-
-
-//populates the table with the results
-
-     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-	    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-	        echo $v;
-    }
- 
  
  
  
@@ -133,11 +99,9 @@ class TableRows extends RecursiveIteratorIterator {
  echo "<br/><a href='changeAdvisorPw.php'>Change Password</a>";
  
  echo '<br/>Remember to Change your Status when you finish with a student:';
- 
- 
- 
- //display status of user
- 
+
+ //display status of advisor
+ include 'advisorTable.php';
  
  
 }

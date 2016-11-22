@@ -1,7 +1,7 @@
 
 
 <?php
-//returns  a time stamp from a database.
+//returns  a time stamp from the msgs database.
 session_start();
 
 require 'sqliConnect.php';

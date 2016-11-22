@@ -84,14 +84,20 @@ if(isset($_SESSION["access_level"]) && $_SESSION["access_level"]==1)
         }
  }
  //database connection class
-    require("db.php");
+
+    
+    
 $name = $_SESSION['id'];
+require 'sqliConnect.php';
+$con = get_sqli();
 
 //upade the database to show that the user is logged in.
-$db = get_db();
-$sql = "UPDATE  login_details SET logged='1' WHERE id='$name'";
- $db->query($sql);
- 
+$sql="UPDATE  login_details SET logged='1' WHERE id='$name'";
+$result = mysqli_query($con,$sql);
+$row = mysqli_fetch_array($result);
+  
+
+
 
  echo "<br><br><br><br><br>Hello $name, This your admin page<br/><a href='logout.php'>Logout</a>";
  
