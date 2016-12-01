@@ -2,7 +2,7 @@
 
 /*
 
-Removes a student from the qeueue and alerts the advisor
+Removes a student from the walk_in  qeueue and alerts the advisor
 */
 
 
@@ -61,7 +61,7 @@ $result = mysqli_query($con,$sql);
  //send student name to advisor
  
 mysqli_select_db($con,"login");
-$sql="UPDATE `login_details` SET `student_name` = '$Name' WHERE `login_details`.`id` = '$advisorID'";
+$sql="UPDATE `login_details` SET `student_name` = '$Name', `Status` ='Waiting for Accept' WHERE `login_details`.`id` = '$advisorID'";
 $result = mysqli_query($con,$sql);
 $row = mysqli_fetch_array($result);
 

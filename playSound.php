@@ -11,10 +11,10 @@
   function play(){
        var audio = document.getElementById("audio");
        audio.play();
-                 }
+               }
    </script>
 
 
-<audio id="audio" src="nice-cut.mp3" ></audio>
+   <audio id="audio" src="nice-cut.mp3" ></audio>
  </body>
  </html>

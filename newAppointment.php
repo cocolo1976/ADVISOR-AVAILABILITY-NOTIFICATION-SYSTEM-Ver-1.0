@@ -42,9 +42,33 @@ echo '<div style="padding:4px; border:1px solid red; color:red;">'.$error.'</div
 <strong>First Name: *</strong> <input type="text" name="firstname" value="<?php echo $first; ?>" /><br/>
 
 <strong>Last Name: *</strong> <input type="text" name="lastname" value="<?php echo $last; ?>" /><br/>
-<strong>Advisor: *</strong> <input type="text" name="advisor" value="<?php echo $advisor; ?>" /><br/>
 <strong>P ID: </strong> <input type="text" name="pid" value="<?php echo $pid; ?>" /><br/>
-<strong>Appointment Time: </strong> <input type="text" name="time" value="<?php echo $time; ?>" /><br/>
+<strong>Appointment Time: *</strong> <input type="text" name="time" value="<?php echo $time; ?>" /><br/>
+<?php
+echo "<label for='advisor'><strong>Select the Appointment Advisor :</strong> </label>";
+echo '<select name="advisor">';
+$con = get_sqli();
+            mysqli_select_db($con,"login");
+$sql="SELECT * FROM login_details WHERE level = 0 AND logged = 1";
+$result2 = mysqli_query($con,$sql);
+
+if (!$result2)
+   {
+    printf("Error: %s\n", mysqli_error($con));
+    exit();
+}
+
+
+            //loops through all advisors for drop down menu creation
+               while ($row2 = mysqli_fetch_array($result2)) 
+                       {
+                         $id = $row2['id'];
+                         echo '<option value="'.$id.'">'.$id.'</option>';
+                      }
+
+ 
+echo '</select>';
+?>
 <p>* required</p>
 
 <input type="submit" name="submit" value="Submit">

@@ -10,13 +10,19 @@
   font-size:22px;
   text-align:center;
  }
+ h2{
+  color:darkblue;
+  font-size:22px;
+  text-align:center;
+ }
 </style>
 </head>
 <body>
-<h1>Login<h1>
+    <h1> <br>Advisor Availability System<br/><h1>
+<h2>Login</h2>
 <form action='#' method='post'>
 <table cellspacing='5' align='center'>
-<tr><td>User name:</td><td><input type='text' name='name'/></td></tr>
+<tr><td>Username:</td><td><input type='text' name='name'/></td></tr>
 <tr><td>Password:</td><td><input type='password' name='pwd'/></td></tr>
 <tr><td></td><td><input type='submit' name='submit' value='Submit'/></td></tr>
 </table>
@@ -96,10 +102,35 @@ $row = mysqli_fetch_array($result);
      header("Location:desk.php");
    }else
    {
+       $sql="select password from login_details where id='".$name."' and level = 3";
+$result = mysqli_query($con,$sql);
+$row = mysqli_fetch_array($result);
+ $hashedpPw =$row['password'];
+  if(password_verify($pwd, $hashedpPw))
+      {
 
+	      $_SESSION['id']="$name";
+	     $_SESSION['access_level']= 3 ;
+     header("Location:display.php");
+   }else
+   {
+ $sql="select password from login_details where id='".$name."' and level = 4";
+$result = mysqli_query($con,$sql);
+$row = mysqli_fetch_array($result);
+ $hashedpPw =$row['password'];
+  if(password_verify($pwd, $hashedpPw))
+      {
+
+	      $_SESSION['id']="$name";
+	     $_SESSION['access_level']= 4 ;
+     header("Location:StudentSignIn.php");
+   }else
+   {
    
          
-         echo'You entered an incorrect username or password';
+         echo'<center>You entered an incorrect username or password</center>';
+   }
+   }
    
    }
    }

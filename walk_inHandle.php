@@ -1,6 +1,24 @@
-<?php
-   //This page handles the walk in queue
+<html>
+    <head>
+        <style>
+           .scroll-table{
+        
+       max-height:150px;
+       overflow: auto;
+       border: 1px;
+       
+    }
+            
+            
+        </style> 
+        
+    </head>
 
+    <body>
+<?php
+
+   //This page handles the walk in queue
+   //include 'sqliConnect.php';
 // connect to the database udinh sqli
 $con = get_sqli();
 // get results from database
@@ -20,7 +38,8 @@ if (!$result) {
 }
 mysqli_close($con);
 //Table to dispaly qeueu of students
-echo "<table border='1' cellpadding='10'>";
+echo '<div class="scroll-table">';
+echo "<table cellpadding='10'>";
 
 echo "<tr> <th>ID</th> <th>First Name</th> <th>Last Name</th><th>Major and Advisor Student wants to see</th><th>P ID</th><th>Select Advisor to notify on send</th><th>Send Student</th><th>Remove</th></tr>";
 
@@ -68,7 +87,7 @@ if (!$result2)
                          $id = $row2['id'];
                          echo '<option value="'.$id.'">'.$id.'</option>';
                       }
-echo'<option selected="selected"></option>';
+echo'<option selected="selected">ANY</option>';
  
 echo '</select>';
 
@@ -82,8 +101,9 @@ echo "</tr>";
 }
 // close table>
 echo "</table>";
-
+echo "</div>"
 
 ?>
-    
+    <!--link to add a new walk_in student-->
 <p><a href="new.php">Add a new Walk In</a></p>
+    </body>

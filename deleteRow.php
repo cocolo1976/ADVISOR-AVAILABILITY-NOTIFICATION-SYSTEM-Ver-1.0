@@ -1,4 +1,5 @@
 <?php
+// deletes a given row from a given table
 include('sqliConnect.php');
 
 

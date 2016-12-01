@@ -3,17 +3,33 @@
     
 	<title>Advisor Status Change Page</title>
 <!-- define some style elements-->
-<style>
+
+    <style type="text/css">
+
+ h1{
+  color:darkblue;
+  font-size:22px;
+  text-align:center;
+ }
+
+
+
+  
+
 label,a 
 {
 	font-family : Arial, Helvetica, sans-serif;
 	font-size : 12px; 
 }
 
-</style>	
+</style>
+
+
 </head>
 
 <body>
+    <h1> <br>Advisor Availability System<br/></h1>
+    
     <audio id="sound" src="nice-cut.mp3" preload="auto"></audio>
 <?php
 	if(isset($_POST['formSubmit'])) 
@@ -83,17 +99,15 @@ $result = mysqli_query($con,$sql);
  
  
  // display a message and logout link
- echo " <br>Hello $name, This is your status page<br/><a href='logout.php'>Logout</a>";
+ echo " <center><br>Hello $name, this is your status page.<br/><a href='logout.php'>Logout</a>";
  //displays a change pw link 
  echo "<br/><a href='changeAdvisorPw.php'>Change Password</a>";
- 
- 
- echo '<br/>Remember to Change your Status when you finish with a student:';
+ echo '<br/><font color ="red">Remember to Change your Status when you finish with a student:</center></font.';
 
  //display status of advisor
  include 'advisorTable.php';
  
- 
+
 }
 else{
  header("Location:index.php?err=2");
@@ -101,18 +115,18 @@ else{
 ?>
         <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
 	<label for='formStatus'></label>
-	<select name="formStatus">
+	<br><center><select name="formStatus">
 		<option value="">Select a Status</option>
                 <option value="Busy">Busy:With Student</option>
-                <option value="RFA">RFA:Ready For App.</option>
-                <option value="RFW">RFW:Ready For Walk-In</option>
+                <option value="RFA">RFA:Ready For Next App.</option>
+                <option value="RFW">RFW:Ready For Next Walk-In</option>
                 <option value="OO">OO:Out of Office</option>
                 <option value="UA">UA:Unavailable</option>
 		
-	</select> 
-	<input type="submit" name="formSubmit" value="Submit" />
+            </select> </center></br>
+            <center><input type="submit" name="formSubmit" value="Submit" /></center>
 
-
+            <br/><center><font color ="red" size ="12">Remember to Logout Before Closing the Browser</font></center>
 <?php
 //sets the status to the parameter given
 function setStatus( $status)
@@ -179,7 +193,13 @@ if (!$result) {
        
      myVar = setInterval(loadXMLDoc2, 5000); 
  
+var inFormOrLink;
+$('a').on('click', function() { inFormOrLink = true; });
+$('form').on('submit', function() { inFormOrLink = true; });
 
+$(window).on("beforeunload", function() { 
+    return inFormOrLink ? "Do you really want to close?" : null; 
+})
  //function used to keep checking if the table has changed. 
  //if student logged is 1 then a function is called to set it to 0
 function loadXMLDoc2() {
@@ -251,7 +271,7 @@ function setToBusy()
     if (this.readyState == 4 && this.status == 200) 
     {
         //reload the page to display the new status
-     location.reload(true)
+     location.reload(true);
      
         
     }

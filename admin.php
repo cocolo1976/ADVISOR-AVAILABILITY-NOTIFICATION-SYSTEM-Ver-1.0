@@ -5,17 +5,28 @@
     
 	<title>Admin Page</title>
 <!-- define some style elements-->
-<style>
+
+    <style type="text/css">
+
+ h1{
+  color:darkblue;
+  font-size:22px;
+  text-align:center;
+ }
+ 
+
 label,a 
 {
 	font-family : Arial, Helvetica, sans-serif;
 	font-size : 12px; 
 }
 
-</style>	
+</style>
+
 </head>
 
 <body>
+    <h1> <br>Advisor Availability System<br/></h1>
 <?php
 //library used for pasword_hashing compatibility on php 5.3.7 and greater
 require 'lib/password.php';
@@ -126,9 +137,9 @@ else{
      
      <label for='clearance'>Select the type of account:</label><br>
      <select name="clearance">
-		<option value="0">Advisor</option>
-		<option value="1">Admin</option>
-		<option value="2">Front Desk</option>
+		<option value="0">0:Advisor</option>
+		<option value="1">1:Admin</option>
+		<option value="2">2:Front Desk</option>
      </select> <br>
    
      

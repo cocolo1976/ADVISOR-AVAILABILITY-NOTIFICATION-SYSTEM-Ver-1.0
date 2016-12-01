@@ -1,3 +1,21 @@
+<html>
+    <head>
+        <style>
+           .scroll-table1{
+      
+       max-height:150px;
+    
+       overflow: auto;
+       border: 1px;
+       
+    }
+            
+            
+        </style> 
+        
+    </head>
+
+    <body>
 <?php
 //this page handles the appointment queue
 //
@@ -21,7 +39,8 @@ if (!$result) {
 }
 mysqli_close($con);
 //Table to dispaly qeueu of students
-echo "<table border='1' cellpadding='10'>";
+echo '<div class="scroll-table1">';
+echo "<table cellpadding='10'>";
 
 echo "<tr> <th>ID</th> <th>First Name</th> <th>Last Name</th><th>Appointment Advisor</th><th>P ID</th><th>Arrival Time</th><th>Appointment Time</th><th>Select Advisor to notify on send</th><th>Send Student</th><th>Remove</th> </tr>";
 
@@ -46,7 +65,7 @@ while($row = mysqli_fetch_array($result))
     $formId =  $row['id'] ; 
     
 echo "<td>" ;
- //create a form to submit the sleected advisor and the seelcted student to be removed from the queue
+ //create a form to submit the sleected advisor and the selcted student to be removed from the queue
 echo '<form action="deleteApmnt.php?id=' . $row['id'] . '" method="post">';
  
  //another query used to retreive the list of advisors  to pupulate the drop down menu
@@ -87,7 +106,10 @@ echo "</tr>";
 // close table>
 echo "</table>";
 
-//mysqli_close($con);
+echo '</div >';
+
 ?>
-    
+ <!-- Add a new appointment, a link to the add appointment page-->
 <p><a href="newAppointment.php">Add a new Appointment</a></p>
+    </body>   
+</html>

@@ -5,8 +5,11 @@
     <style>
 table {
     
-    width: 100%;
+    width: 400px;
     border-collapse: collapse;
+    text-align: left;
+    
+   
 }
 
 table, td, th {
@@ -14,7 +17,7 @@ table, td, th {
     padding: 5px;
 }
 
-th {text-align: left;}
+th {text-align: center;}
 </style>
 </head>
 <body>
@@ -37,7 +40,7 @@ if (!$result) {
     exit();
 }
 
-echo "<table>
+echo "<center><table>
 <tr>
 <th>ID</th>
 <th>Status</th>
@@ -48,7 +51,7 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td>" . $row['status'] . "</td>";
     echo "</tr>";
 }
-echo "</table>";
+echo "</table></center>";
 mysqli_close($con);
 ?>
 </body>

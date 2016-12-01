@@ -3,6 +3,7 @@
 <html>
 <head>  
     <style>
+      
 table {
     width: 100%;
     border-collapse: collapse;
@@ -53,7 +54,11 @@ while($row = mysqli_fetch_array($result)) {
     echo "</tr>";
 }
 echo "</table>";
+
 mysqli_close($con);
 ?>
+    
+
+
 </body>
 </html>

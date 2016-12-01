@@ -3,6 +3,14 @@
 <html>
 <head>  
     <style>
+ .scroll-table3
+     {
+        
+       max-height:200px;
+       overflow: auto;
+       border: 1px;
+       
+    }
 table {
     width: 100%;
     border-collapse: collapse;
@@ -34,7 +42,7 @@ if (!$result) {
     printf("Error: %s\n", mysqli_error($con));
     exit();
 }
-
+echo '<div class="scroll-table3">';
 echo "<table>
 <tr>
 <th>ID</th>
@@ -55,6 +63,7 @@ while($row = mysqli_fetch_array($result)) {
     echo "</tr>";
 }
 echo "</table>";
+echo '</div>';
 mysqli_close($con);
 ?>
 </body>
